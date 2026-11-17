@@ -1,10 +1,9 @@
-/* ===== НАСТРОЙКИ ===== */
-// Когда у Человека 2 будет API, впиши адрес, например 'https://api.example.com'. Пусто = моки ниже.
+
 var API_URL = '';
 var FARM = 'Росток';
-var WEATHER = { temp: 24 };   // потом брать из API
+var WEATHER = { temp: 24 };  
 
-/* ===== МОКИ: замени контуры и числа на свои (контуры из geojson.io) ===== */
+
 var MOCK_FIELDS = {
   type: 'FeatureCollection',
   features: [
