@@ -1,4 +1,4 @@
-/* ================== ТЕКСТЫ (RU / UZ / EN) ================== */
+
 var STR = {
   ru: { sub:'мини-приложение', farm:'Хозяйство', hello:'Ваши поля под контролем', hello2:'Всё важное для здорового урожая',
     overview:'ОБЗОР ХОЗЯЙСТВА', nfields:'Полей: {n}', attn:'Требуют внимания: {n}', monitoring:'Мониторинг', upd:'Данные на {d}',
@@ -54,7 +54,7 @@ function store(k, v) {
   return null;
 }
 
-/* ================== ДАННЫЕ ================== */
+
 async function getFields() {
   if (!API_URL) return MOCK_FIELDS;
   var r = await fetch(API_URL + '/fields');
@@ -68,7 +68,7 @@ async function getHistory(id) {
   return r.json();
 }
 
-/* ================== СОСТОЯНИЕ ================== */
+
 var params = new URLSearchParams(location.search);
 var tg = window.Telegram && Telegram.WebApp ? Telegram.WebApp : null;
 var tgUser = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
@@ -91,7 +91,7 @@ function props() { return fields.features.map(function (f) { return f.properties
 function findField(id) { return props().filter(function (p) { return p.id === id; })[0]; }
 function cropName(c) { return L().crops[c] || c; }
 
-/* ================== ГЛАВНАЯ ================== */
+
 function renderHome() {
   var t = L(), ps = props(), total = 0, dry = 0, sal = 0, last = '';
   ps.forEach(function (p) {
@@ -123,7 +123,7 @@ function renderHome() {
   $('tab-home').innerHTML = h;
 }
 
-/* ================== ЗАДАЧИ И ЕЩЁ ================== */
+
 function renderTasks() {
   var t = L(), h = '<h2 style="margin-top:8px">' + t.journal + '</h2><div style="height:10px"></div>';
   if (!journal.length) h += '<p class="empty">' + t.empty + '</p>';
@@ -138,7 +138,7 @@ function renderMore() {
   $('tab-more').innerHTML = '<h2 style="margin-top:8px">AgroLand</h2><p class="about">' + t.about + '</p><p class="note">⚠ ' + t.prelimNote + '</p>';
 }
 
-/* ================== КАРТА ================== */
+
 function renderLegend() {
   var t = L(), h = '';
   ['ok', 'dry', 'saline'].forEach(function (s) { h += '<li><i style="background:' + COLORS[s] + '"></i>' + t[s] + '</li>'; });
@@ -219,7 +219,7 @@ function openField(id) {
   selectField(id);
 }
 
-/* ================== НАВИГАЦИЯ И ЯЗЫК ================== */
+
 function renderNav() {
   var t = L(), h = '';
   TABS.forEach(function (n) {
@@ -249,7 +249,7 @@ $('lang').onchange = function () {
   renderAll();
 };
 
-/* ================== СТАРТ ================== */
+
 renderNav();
 $('tab-home').innerHTML = '<p class="empty">' + L().loading + '</p>';
 setTab('home');
