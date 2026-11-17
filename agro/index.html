@@ -104,16 +104,15 @@ svg.chart{width:100%;height:auto;display:block}
   <nav id="nav"></nav>
 </div>
 <script>
-/* ===== НАСТРОЙКИ ===== */
-// Когда у Человека 2 будет API, впиши адрес, например 'https://api.example.com'. Пусто = демо-данные ниже.
+
 var API_URL = '';
 var FARM = 'Росток';
-var WEATHER = { temp: 24 };      // потом брать из API
-var UPDATED_AT = '09:40';        // время последнего обновления
+var WEATHER = { temp: 24 };      
+var UPDATED_AT = '09:40';        
 
-/* ===== ДЕМО-ДАННЫЕ (12 полей, 1 240 га). Контуры сетки условные: замени на реальные из geojson.io ===== */
+
 var DEMO = [
-  // id, имя ru, uz, en, культура, га, статус
+
   ['f01', 'Северное',  'Shimoliy',       'Northern',   'wheat',     240, 'pests'],
   ['f02', 'Заречное',  'Daryo ortidagi', 'Zarechnoye', 'corn',      180, 'dry'],
   ['f03', 'Солнечное', 'Quyoshli',       'Sunny',      'sunflower', 120, 'ok'],
@@ -155,7 +154,7 @@ DEMO.forEach(function (d, i) {
 
 </script>
 <script>
-/* ================== ТЕКСТЫ (RU / UZ / EN) ================== */
+
 var STR = {
   ru: { sub:'мини-приложение', farm:'Хозяйство', hello:'Ваши поля под контролем', hello2:'Всё важное для здорового урожая',
     overview:'ОБЗОР ХОЗЯЙСТВА', nfields:'Полей: {n}', attn:'Требуют внимания: {n}', monitoring:'Мониторинг', upd:'Обновлено в {d}',
@@ -210,7 +209,7 @@ function store(k, v) {
   return null;
 }
 
-/* ================== ДАННЫЕ ================== */
+
 async function getFields() {
   if (!API_URL) return MOCK_FIELDS;
   var r = await fetch(API_URL + '/fields');
@@ -224,7 +223,7 @@ async function getHistory(id) {
   return r.json();
 }
 
-/* ================== СОСТОЯНИЕ ================== */
+
 var params = new URLSearchParams(location.search);
 var tg = window.Telegram && Telegram.WebApp ? Telegram.WebApp : null;
 var tgUser = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
@@ -247,7 +246,7 @@ function props() { return fields.features.map(function (f) { return f.properties
 function findField(id) { return props().filter(function (p) { return p.id === id; })[0]; }
 function cropName(c) { return tr().crops[c] || c; }
 
-/* ================== ГЛАВНАЯ ================== */
+
 var showAll = false;
 function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 function fname(p) { return p['name_' + lang] || p.name; }
@@ -300,7 +299,7 @@ var irr = ps.slice().sort(function (a, b) {
   $('tab-home').innerHTML = h;
 }
 
-/* ================== ЗАДАЧИ И ЕЩЁ ================== */
+
 function renderTasks() {
   var t = tr(), h = '<h2 style="margin-top:8px">' + t.journal + '</h2><div style="height:10px"></div>';
   if (!journal.length) h += '<p class="empty">' + t.empty + '</p>';
@@ -315,7 +314,7 @@ function renderMore() {
   $('tab-more').innerHTML = '<h2 style="margin-top:8px">AgroLand</h2><p class="about">' + t.about + '</p><p class="note">⚠ ' + t.prelimNote + '</p>';
 }
 
-/* ================== КАРТА ================== */
+
 function renderLegend() {
   var t = tr(), h = '';
   ['ok', 'dry', 'saline', 'pests'].forEach(function (s) { h += '<li><i style="background:' + COLORS[s] + '"></i>' + t[s] + '</li>'; });
@@ -396,7 +395,7 @@ function openField(id) {
   selectField(id);
 }
 
-/* ================== НАВИГАЦИЯ И ЯЗЫК ================== */function renderNav() {
+function renderNav() {
   var t = tr(), h = '';
   TABS.forEach(function (n) {
     h += '<button data-tab="' + n + '" class="' + (n === tab ? 'on' : '') + '" onclick="setTab(\'' + n + '\')"><span>' + ICONS[n] + '</span>' + t[n] + '</button>';
@@ -425,7 +424,7 @@ $('lang').onchange = function () {
   renderAll();
 };
 
-/* ================== СТАРТ ================== */
+
 renderNav();
 $('tab-home').innerHTML = '<p class="empty">' + tr().loading + '</p>';
 setTab('home');
